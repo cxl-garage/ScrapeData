@@ -2,7 +2,9 @@
 
 ## Dependencies
 # pip install python-dwca-reader
-# pip install PyInquirer
+# pip install pandas
+# pip install seaborn
+
 
 ## Assumptions of this Script
 # Will only be searching for: animal images by human/machine observation in GBIF database,
@@ -42,9 +44,8 @@ def canOpener(fileName, folderName, pictName,arrayName, first, last,):
       else:
         j=j+1
 
-
 ## Define Classes
-def Filter(zipfile, max_instances, level, Phylogenic, Temporal, Length, Location, Range):
+def Filter_Loop(zipfile, max_instances, level, Phylogenic, Temporal, Length, Location, Range):
     dwca = DwCAReader(zipfile)
     #TemporalIndex = []
     new = []
@@ -56,64 +57,57 @@ def Filter(zipfile, max_instances, level, Phylogenic, Temporal, Length, Location
             #print(core_row.data[qn(level)])
             if (Phylogenic == core_row.data[qn(level)]) and (Temporal == core_row.data[qn('month')]):
                 new = np.append(new, 1)
-                k = k+1
+                k = k + 1
             else:
                 new = np.append(new, 0)
         row = row + 1
     dwca.close
-    print('Make month optional')
-    print('Make Location/Range Optional')
+    #print('Make Month, Location/Range Optional')
     return new
 
-zipfile = 'test_GBIF_Scrape.zip'#'/home/cxl_garage/Desktop/CXL_GBIF_Scrape.zip'
-media_links = 'test_GBIF_Scrape/multimedia.txt'#'/home/cxl_garage/Desktop/CXL_GBIF_Scrape/multimedia.txt'
+def Filter_pandas(zipfile, max_instances, level, Phylogenic, Temporal, Length, Location, Range):
+    import pandas as pd
+    import seaborn as sns
 
+    with DwCAReader(zipfile) as dwca:
+        #print("Core data file is: {}".format(dwca.descriptor.core.file_location)) # => 'occurrence.txt'
 
-#TemporalFilter(zipfile, 3, 2)
-def class_prep_loop(zipfile):
-    xclass = []
-    order  = []
-    genus  = []
-    family = []
-    sex    = []
-    dwca = DwCAReader(zipfile)
-    for core_row in dwca:
-        #print(core_row.data[qn('class')])
-        #print(core_row.data[qn('order')])
-        #print(core_row.data[qn('family')])
-        print(core_row.data[qn('genus')])
-        #print(core_row.data[qn('sex')])
+        core_df = dwca.pd_read('occurrence.txt', parse_dates=True)
+
+       # All Pandas functionalities are now available on the core_df DataFrame
+
+    # Number of records for each institutioncode
+    #genus = core_df['genus'].head()
+    #genus = core_df['genus'].value_counts()
+    new = core_df[(core_df[level] == Phylogenic)]# &
+                #(core_df['month'] == Temporal)] #&
+                #(core_df["decimalLongitude"] != 0.0) &
+                #(core_df["decimalLongitude"].notnull()) &
+                #(core_df["eventDate"].notnull())]
+    new = new.index
     return new
 
-def class_prep_npsearch(zipfile):
 
-    xclass = np.loadtxt(zipfile, dtype=('U', 10), skiprows=1, usecols=(1))
-    unique_class = np.unique(a)
-    print(unique_class)
-    order = np.loadtxt(zipfile, dtype=('U', 10), skiprows=1, usecols=(37))
-    unique_order = np.unique(a)
-    print(unique_order)
-    genus = np.loadtxt(zipfile, dtype=('U', 10), skiprows=1, usecols=(38))
-    unique_genus = np.unique(a)
-    print(unique_genus)
-    sex = np.loadtxt(zipfile, dtype=('U', 10), skiprows=1, usecols=(50))
-    unique_sex = np.unique(a)
-    print(unique_sex)
-    return new
-
-def example():
-    print('Finding Indexes')
-    classfilter_index = Filter('test_GBIF_Scrape.zip', 100, 'genus', 'Oreochromis', 3, 1, 0, 0)
-    user_class_name = 'class1'
-    #dtype1 = np.dtype([('gender', '|S1'), ('height', 'f8')])
-    print('creating actual array')
-    a = np.loadtxt('test_GBIF_Scrape/multimedia.txt', dtype = str, skiprows=1, usecols=(3))
-    a = np.extract(classfilter_index,a)
-    b = np.full(len(a),user_class_name,dtype=('U', 10))
-    class_array = np.stack((b,a), axis=-1)
+def exampleLoop(Filter):
+    if Filter == 'loop':
+        classfilter_index = Filter_Loop('test_GBIF_Scrape.zip', 100, 'genus', 'Oreochromis', '3', '1', '0', '0')
+        user_class_name = 'class1'
+        a = np.loadtxt('test_GBIF_Scrape/multimedia.txt', dtype = str, skiprows=1, usecols=(3))
+        a = np.extract(classfilter_index,a)
+        b = np.full(len(a),user_class_name,dtype=('U', 10))
+        class_array = np.stack((b,a), axis=-1)
+    if Filter == 'pandas':
+        classfilter_index = Filter_pandas('test_GBIF_Scrape.zip', 100, 'genus', 'Oreochromis', '3', '1', '0', '0')
+        print(classfilter_index)
+        user_class_name = 'class1'
+        a = np.loadtxt('test_GBIF_Scrape/multimedia.txt', dtype = str, skiprows=1, usecols=(3))
+        a = np.extract(classfilter_index,a)
+        b = np.full(len(a),user_class_name,dtype=('U', 10))
+        class_array = np.stack((b,a), axis=-1)
+    else:
+        print('Filter Type does not exist')
     return class_array
-### USER INPUTS
-#class_prep_loop(zipfile)
+
 def userinput():
     userinput = 1
     while 1 :
@@ -189,21 +183,14 @@ def userinput():
         else:
             print('Incorrect Key Selected, please choose y or n...')
 
-print('Successful - Let\'s make this AI algorithm!!')
+    print('Successful - Let\'s make this AI algorithm!!')
 
 
+zipfile = 'test_GBIF_Scrape.zip'#'/home/cxl_garage/Desktop/CXL_GBIF_Scrape.zip'
+media_links = 'test_GBIF_Scrape/multimedia.txt'#'/home/cxl_garage/Desktop/CXL_GBIF_Scrape/multimedia.txt'
+#userinput()
 
 
-#    kingdom     = 0
-#    a_class     = 0
-#    order       = 0
-#    family      = 0
-#    genus       = 0
-#    subgenus    = 0
-#    sex         = 0
+#print(Filter_pandas())
 
-#    coordinates = 0
-#    country     = 0
-
-#    month       = 3
-#    plusminus   = 3
+exampleLoop('pandas')
