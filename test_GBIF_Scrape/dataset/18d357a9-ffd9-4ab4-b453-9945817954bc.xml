@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.1/eml.xsd"
+        packageId="18d357a9-ffd9-4ab4-b453-9945817954bc"  system="http://gbif.org" scope="system"
+  xml:lang="en">
+
+<dataset>
+      <alternateIdentifier>10.15468/ag0rsa</alternateIdentifier>
+        <alternateIdentifier>18d357a9-ffd9-4ab4-b453-9945817954bc</alternateIdentifier>
+        <alternateIdentifier>http://ipt.vertnet.org:8080/ipt/resource?r=tilmap</alternateIdentifier>
+    <title>TilapiaMap</title>
+    <creator>
+    <individualName>
+<givenName>Emma</givenName>          <surName>Green</surName>
+    </individualName>
+<organizationName>TilapiaMap</organizationName><positionName>Research Project Support Officer</positionName>    <address>
+<deliveryPoint>Bangor University, School of Biological Sciences (Memorial Building), Deniol Road</deliveryPoint><city>Bangor LL57 2UW</city><administrativeArea>Gwynedd</administrativeArea><country>UNITED_KINGDOM</country>    </address>
+<phone>+44 1248 38 2855</phone><electronicMailAddress>emma.green@bangor.ac.uk</electronicMailAddress><onlineUrl>http://www.tilapiamap.org/</onlineUrl>    </creator>
+    <metadataProvider>
+    <individualName>
+<givenName>Emma</givenName>          <surName>Green</surName>
+    </individualName>
+<organizationName>TilapiaMap</organizationName><positionName>Research Project Support Officer</positionName>    <address>
+<deliveryPoint>Bangor University, School of Biological Sciences (Memorial Building), Deniol Road</deliveryPoint><city>Bangor LL57 2UW</city><administrativeArea>Gwynedd</administrativeArea><country>UNITED_KINGDOM</country>    </address>
+<phone>+44 1248 38 2855</phone><electronicMailAddress>emma.green@bangor.ac.uk</electronicMailAddress><onlineUrl>http://www.tilapiamap.org/</onlineUrl>    </metadataProvider>
+    <associatedParty>
+    <individualName>
+<givenName>David</givenName>          <surName>Bloom</surName>
+    </individualName>
+<organizationName>VertNet</organizationName><positionName>VertNet Coordinator</positionName><electronicMailAddress>dbloom@vertnet.org</electronicMailAddress><onlineUrl>http://www.vertnet.org</onlineUrl>    <role>PROGRAMMER</role>
+    </associatedParty>
+    <associatedParty>
+    <individualName>
+<givenName>John</givenName>          <surName>Wieczorek</surName>
+    </individualName>
+<organizationName>VertNet</organizationName><positionName>Information Architect</positionName><electronicMailAddress>tuco@berkeley.edu</electronicMailAddress><onlineUrl>http://www.vertnet.org</onlineUrl>    <role>PROGRAMMER</role>
+    </associatedParty>
+    <associatedParty>
+    <individualName>
+<givenName>George</givenName>          <surName>Turner</surName>
+    </individualName>
+<organizationName>TilapiaMap</organizationName><positionName>Professor of Zoology</positionName><phone>+44 1248 38 2349</phone><electronicMailAddress>george.turner@bangor.ac.uk</electronicMailAddress>    <role>POINT_OF_CONTACT</role>
+    </associatedParty>
+      <pubDate>
+      2019-12-06
+      </pubDate>
+    <language>ENGLISH</language>
+    <abstract>
+        <para>East Africa is the major hotspot for diversity of native Oreochromis, the genus that dominated the $5b&amp;#43; global tilapia farming industry. These unique populations may contain genes for disease resistance, environmental tolerances valuable for improvement of farmed tilapia strains. However, they are threatened by invasive strains stocked from fish farms which often outcompete native tilapia strains or genetically swap them through hybridization. Recent surveys have indicated that non-native often invasive species are now present in many water bodies, but assessing or ameliorating the threat has been hampered by lack of species identification capacity and difficulty in archiving and accessing distribution. Therefore, it is the aim of this project to identify remaining populations of native tilapias in Kenya and Tanzania, map distribution of introduced and invasive species. This will be done using TilapiaMap (http://tilapiamap.bangor.ac.uk), a cost effective smartphone app developed by Geosho (www.geosho.com) for Bangor University and the Tanzania Fisheries Research Institute (www.tafiri.go.tz). Data collected from the project will be made available in open access global repositories and it is envisaged that these data will inform policy on zonation of strains used in aquaculture and on importation of non-native species, ultimately helping to preserve the genetic diversity of East Africa’s native tilapia.</para>
+    </abstract>
+        <keywordSet>
+              <keyword>Occurrence</keyword>
+              <keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type.xml</keywordThesaurus>
+        </keywordSet>
+        <keywordSet>
+              <keyword>Observation</keyword>
+              <keywordThesaurus>GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml</keywordThesaurus>
+        </keywordSet>
+      <additionalInfo>
+          <para>http://vertnet.org/resources/norms.html</para>
+      </additionalInfo>
+      <intellectualRights>
+        <para>To the extent possible under law, the publisher has waived all rights to these data and has dedicated them to the <ulink url="http://creativecommons.org/publicdomain/zero/1.0/legalcode"><citetitle>Public Domain (CC0 1.0)</citetitle></ulink>. Users may copy, modify, distribute and use the work, including for commercial purposes, without restriction.</para>
+      </intellectualRights>
+      <distribution scope="document">
+          <online>
+              <url function="information">http://www.tilapiamap.org/</url>
+          </online>
+      </distribution>
+      <coverage>
+            <geographicCoverage>
+                  <geographicDescription>Kenya, Tanzania</geographicDescription>
+                  <boundingCoordinates>
+                      <westBoundingCoordinate>29.268</westBoundingCoordinate>
+                      <eastBoundingCoordinate>41.924</eastBoundingCoordinate>
+                      <northBoundingCoordinate>5.135</northBoundingCoordinate>
+                      <southBoundingCoordinate>-11.953</southBoundingCoordinate>
+                  </boundingCoordinates>
+            </geographicCoverage>
+              <taxonomicCoverage>
+                    <taxonomicClassification>
+                          <taxonRankName>Family</taxonRankName>
+                        <taxonRankValue>Cichlidae</taxonRankValue>
+                    </taxonomicClassification>
+              </taxonomicCoverage>
+      </coverage>
+      <maintenance>
+          <description>
+              <para></para>
+          </description>
+          <maintenanceUpdateFrequency>unkown</maintenanceUpdateFrequency>
+      </maintenance>
+      <contact>
+    <individualName>
+<givenName>Emma</givenName>          <surName>Green</surName>
+    </individualName>
+<organizationName>TilapiaMap</organizationName><positionName>Research Project Support Officer</positionName>    <address>
+<deliveryPoint>Bangor University, School of Biological Sciences (Memorial Building), Deniol Road</deliveryPoint><city>Bangor LL57 2UW</city><administrativeArea>Gwynedd</administrativeArea><country>UNITED_KINGDOM</country>    </address>
+<phone>+44 1248 38 2855</phone><electronicMailAddress>emma.green@bangor.ac.uk</electronicMailAddress><onlineUrl>http://www.tilapiamap.org/</onlineUrl>      </contact>
+
+      <project >
+          <title>Mapping for Conservation of Native Tilapia Resources in East Africa (TilapiaMap)</title>
+          <personnel>
+    <individualName>
+<givenName>Emma</givenName>          <surName>Green</surName>
+    </individualName>
+    <role>POINT_OF_CONTACT</role>
+          </personnel>
+          <abstract>
+              <para></para>
+          </abstract>
+          <funding>
+              <para>This project is funded by JRS Biodiversity Foundation (http://jrsbiodiversity.org/grants/bangor-2017/). The mission of the foundation is to enhance knowledge and promote the understanding of biological diversity for the benefit and sustainability of life on earth. More information about the organisation may be found here (http://jrsbiodiversity.org/)</para>
+          </funding>
+      </project>
+</dataset>
+
+<additionalMetadata>
+    <metadata>
+      <gbif>
+        <dateStamp>2020-02-04T18:58:00Z</dateStamp>
+      <citation>Green E (2019). TilapiaMap. Version 1.6. TilapiaMap. Occurrence dataset https://doi.org/10.15468/ag0rsa accessed via GBIF.org on 2020-02-04.</citation>
+        </gbif>
+    </metadata>
+</additionalMetadata>
+
+</eml:eml>

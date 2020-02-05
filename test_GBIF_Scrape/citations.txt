@@ -1,0 +1,2 @@
+When using this dataset please use the following citation and pay attention to the rights documented in rights.txt:
+Green E (2019). TilapiaMap. Version 1.6. TilapiaMap. Occurrence dataset https://doi.org/10.15468/ag0rsa accessed via GBIF.org on 2020-02-04.

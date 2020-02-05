@@ -43,26 +43,31 @@ def canOpener(fileName, folderName, pictName,arrayName, first, last,):
         j=j+1
 
 
-
 ## Define Classes
 def Filter(zipfile, max_instances, level, Phylogenic, Temporal, Length, Location, Range):
     dwca = DwCAReader(zipfile)
     #TemporalIndex = []
     new = []
+    k = 0
+    row = 0
     for core_row in dwca:
-        if len(new) > int(max_instances):
-            break
-        if (Phylogenic == core_row.data[qn(level)]) and (Temporal == core_row.data[qn('month')]):
-            new = np.append(new, 1)
-        else:
-            new = np.append(new, 0)
+        #print(row)
+        if k <= int(max_instances):
+            #print(core_row.data[qn(level)])
+            if (Phylogenic == core_row.data[qn(level)]) and (Temporal == core_row.data[qn('month')]):
+                new = np.append(new, 1)
+                k = k+1
+            else:
+                new = np.append(new, 0)
+        row = row + 1
     dwca.close
     print('Make month optional')
     print('Make Location/Range Optional')
     return new
 
-zipfile = 'test_GBIF_Scrape.zip'
-media_links = 'test_GBIF_Scrape\multimedia.txt'
+zipfile = 'test_GBIF_Scrape.zip'#'/home/cxl_garage/Desktop/CXL_GBIF_Scrape.zip'
+media_links = 'test_GBIF_Scrape/multimedia.txt'#'/home/cxl_garage/Desktop/CXL_GBIF_Scrape/multimedia.txt'
+
 
 #TemporalFilter(zipfile, 3, 2)
 def class_prep_loop(zipfile):
@@ -71,12 +76,13 @@ def class_prep_loop(zipfile):
     genus  = []
     family = []
     sex    = []
+    dwca = DwCAReader(zipfile)
     for core_row in dwca:
-        xclass = core_row.data[qn('class')]
-        core_row.data[qn('order')]
-        core_row.data[qn('family')]
-        core_row.data[qn('genus')]
-        core_row.data[qn('sex')]
+        #print(core_row.data[qn('class')])
+        #print(core_row.data[qn('order')])
+        #print(core_row.data[qn('family')])
+        print(core_row.data[qn('genus')])
+        #print(core_row.data[qn('sex')])
     return new
 
 def class_prep_npsearch(zipfile):
@@ -95,81 +101,93 @@ def class_prep_npsearch(zipfile):
     print(unique_sex)
     return new
 
+def example():
+    print('Finding Indexes')
+    classfilter_index = Filter('test_GBIF_Scrape.zip', 100, 'genus', 'Oreochromis', 3, 1, 0, 0)
+    user_class_name = 'class1'
+    #dtype1 = np.dtype([('gender', '|S1'), ('height', 'f8')])
+    print('creating actual array')
+    a = np.loadtxt('test_GBIF_Scrape/multimedia.txt', dtype = str, skiprows=1, usecols=(3))
+    a = np.extract(classfilter_index,a)
+    b = np.full(len(a),user_class_name,dtype=('U', 10))
+    class_array = np.stack((b,a), axis=-1)
+    return class_array
 ### USER INPUTS
+#class_prep_loop(zipfile)
+def userinput():
+    userinput = 1
+    while 1 :
+        input_location = input('Do you want to limit by location? (y/n): ')
+        if input_location == 'y':
+            print('Location Limitation not functional yet...')
+            Location = 0
+            Range = 0
+            break
+        if input_location == 'n':
+            print('Location Limitation OFF')
+            Location = 0
+            Range = 0
+            break
+        else:
+            print('Incorrect Key Selected, please choose y or n')
+    userinput = 1
+    while 1 :
+        input_temporal = input('Do you want to limit by month? (y/n): ')
+        if input_location == 'y':
+            input_month = input('Temporal Limitation ON, which month will the asset be deployed? (1-12 for months of the year): ')
+            input_deployment_length = input('How long will the asset be deployed? (months): ')
+            break
+        if input_location == 'n':
+            print('Temporal Limitation OFF: ')
+            input_month = 0
+            input_deployment_length = 0
+            break
+        else:
+            print('Incorrect Key Selected, please choose y or n')
 
-userinput = 1
-while 1 :
-    input_location = input('Do you want to limit by location? (y/n): ')
-    if input_location == 'y':
-        print('Location Limitation not functional yet...')
-        Location = 0
-        Range = 0
-        break
-    if input_location == 'n':
-        print('Location Limitation OFF')
-        Location = 0
-        Range = 0
-        break
-    else:
-        print('Incorrect Key Selected, please choose y or n')
-userinput = 1
-while 1 :
-    input_temporal = input('Do you want to limit by month? (y/n): ')
-    if input_location == 'y':
-        input_month = input('Temporal Limitation ON, which month will the asset be deployed? (1-12 for months of the year): ')
-        input_deployment_length = input('How long will the asset be deployed? (months): ')
-        break
-    if input_location == 'n':
-        print('Temporal Limitation OFF: ')
-        input_month = 0
-        input_deployment_length = 0
-        break
-    else:
-        print('Incorrect Key Selected, please choose y or n')
-
-another_class = 1
-userinput = 1
-export_array = []
-while 1:
-    input_anotherclass = input('Want to add another class? y/n: ')
-    if input_anotherclass == 'y':
-        print('Adding another class...')
-        userinput = input('Want to add another class? y/n: ')
-        max_instances = input('What is the maximum number of training instances?: ')
-        while 1:
-            userclass_definedby = input('How do you want to define your class? (order,family,genus,genus_sex): ')
-            if userclass_definedby == 'order':
-                class_definition = input('What order are you looking for? (Latin): ')
-                break
-            if userclass_definedby == 'family':
-                class_definition = input('What family are you looking for? (Latin): ')
-                break
-            if userclass_definedby == 'genus':
-
-                class_definition = input('What order are you looking for? (Latin): ')
-                break
-            if userclass_definedby == 'genus_sex':
-                print('Sorry, Genus_Sex Functionality not yet ready...')
-        classfilter_index = Filter(zipfile, max_instances, userclass_definedby, class_definition,input_month,input_deployment_length, 0,0)
-        user_class_name = input('What is the name of this class?: ')
-        print(classfilter_index)
-        print(len(classfilter_index))
-        #dtype1 = np.dtype([('gender', '|S1'), ('height', 'f8')])
-        a = np.loadtxt(media_links, dtype = str, skiprows=1, usecols=(3))
-        a = np.extract(classfilter_index,a)
-        #x = np.arange(len(a), dtype=int)
-        print(len(a))
-        b = np.full(len(a),user_class_name,dtype=('U', 10))
-        print(len(b))
-        class_array = np.stack((b,a), axis=-1)
-        print(class_array)
-        export_array = np.append(export_array,class_array)
-        print(export_array)
-        break
-    if input_anotherclass == 'n':
-        break
-    else:
-        print('Incorrect Key Selected, please choose y or n...')
+    another_class = 1
+    userinput = 1
+    export_array = []
+    while 1:
+        input_anotherclass = input('Want to add another class? y/n: ')
+        if input_anotherclass == 'y':
+            print('Adding another class...')
+            userinput = input('Want to add another class? y/n: ')
+            max_instances = input('What is the maximum number of training instances?: ')
+            while 1:
+                userclass_definedby = input('How do you want to define your class? (order,family,genus,genus_sex): ')
+                if userclass_definedby == 'order':
+                    class_definition = input('What order are you looking for? (Latin): ')
+                    break
+                if userclass_definedby == 'family':
+                    class_definition = input('What family are you looking for? (Latin): ')
+                    break
+                if userclass_definedby == 'genus':
+                    class_definition = input('What order are you looking for? (Latin): ')
+                    break
+                if userclass_definedby == 'genus_sex':
+                    print('Sorry, Genus_Sex Functionality not yet ready...')
+            print('Looking for dem photos')
+            classfilter_index = Filter(zipfile, max_instances, userclass_definedby, class_definition,input_month,input_deployment_length, 0,0)
+            user_class_name = input('What is the name of this class?: ')
+            print(classfilter_index)
+            print(len(classfilter_index))
+            #dtype1 = np.dtype([('gender', '|S1'), ('height', 'f8')])
+            a = np.loadtxt(media_links, dtype = str, skiprows=1, usecols=(3))
+            a = np.extract(classfilter_index,a)
+            #x = np.arange(len(a), dtype=int)
+            print(len(a))
+            b = np.full(len(a),user_class_name,dtype=('U', 10))
+            print(len(b))
+            class_array = np.stack((b,a), axis=-1)
+            print(class_array)
+            export_array = np.append(export_array,class_array)
+            print(export_array)
+            break
+        if input_anotherclass == 'n':
+            break
+        else:
+            print('Incorrect Key Selected, please choose y or n...')
 
 print('Successful - Let\'s make this AI algorithm!!')
 
